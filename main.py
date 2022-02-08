@@ -1,11 +1,10 @@
 import sys
 import hashlib
 import tkinter as tk
-from tkinter import filedialog
+from tkinter.filedialog import askopenfilename
 
 root = tk.Tk()
 root.withdraw()
-file = filedialog.askopenfilenames()
 
 BUF_SIZE = 65536 
 
@@ -33,7 +32,7 @@ def hashselect():
 
 
 def openfile(hash):
-    
+    file = askopenfilename()
     print(file)
     with open((file), 'rb') as f:
         while True:
@@ -45,5 +44,11 @@ def openfile(hash):
 
 def output(type, hash):   
     print(type+": {0}".format(hash.hexdigest()))
+    check=input("\nEnter hash value to check against\n")
+    print(hash.hexdigest())
+    if hash.hexdigest()==check:
+        print("They match")
+    else:
+        print("They do not match")
 
 hashselect()
