@@ -65,8 +65,9 @@ def hashchoice(choice, file):
                 break
             hash.update(data)'''
 
-def outputCheck(submission, hash):
-    print(hash.hexdigest())
+
+
+    
 
 
 '''def output(type, hash):   
