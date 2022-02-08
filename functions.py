@@ -51,9 +51,15 @@ def hashchoice(choice, file):
             data = f.read(BUF_SIZE)
             if not data:
                 return hash
+                outputCheck(hash, submission)
                 #root.destroy()
                 break
             hash.update(data)
+
+def outputCheck():
+# take inputs from hash and submission seperately defaulted to none
+ pass    
+
 '''def openfile(hash):
     file = askopenfilename()
     print(file)

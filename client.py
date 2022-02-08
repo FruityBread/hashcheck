@@ -74,12 +74,12 @@ class checkVal(tk.Frame):
             print(hash.hexdigest())
             print(valueBox.get())
             if valueBox.get() == (hash.hexdigest()):
-                matching.config(text="Values match")
                 matching.pack_forget()
-
-
+                matching=ttk.Label(self, text="Values match")
+                matching.pack()
             else:
-                matching.config(text="Values do not match")
+                matching.pack_forget()
+                matching=ttk.Label(self, text="Values do not match")
                 matching.pack()
     
 
