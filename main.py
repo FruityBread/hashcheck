@@ -1,5 +1,11 @@
 import sys
 import hashlib
+import tkinter as tk
+from tkinter import filedialog
+
+root = tk.Tk()
+root.withdraw()
+file = filedialog.askopenfilenames()
 
 BUF_SIZE = 65536 
 
@@ -27,10 +33,13 @@ def hashselect():
 
 
 def openfile(hash):
-    with open((sys.argv[1]), 'rb') as f:
+    
+    print(file)
+    with open((file), 'rb') as f:
         while True:
             data = f.read(BUF_SIZE)
             if not data:
+                root.destroy()
                 break
             hash.update(data)
 
