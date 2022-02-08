@@ -1,7 +1,8 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import Entry, ttk
 import functions
 from tkinter.filedialog import askopenfilename
+from sys import exit
 
 class window(tk.Tk):
 
@@ -39,9 +40,13 @@ class StartPage(tk.Frame):
         label.pack(pady=10, padx=10)
         
         def Choice(choice):
-            controller.show_frame(checkVal)
-            functions.hashchoice(str(choice))
-
+            file = askopenfilename()
+            if file:
+                hash = functions.hashchoice(choice, file)
+                controller.show_frame(checkVal)
+            else:
+                exit()
+            
         SHA256 = ttk.Button(self, text="SHA256",
                            command=lambda: Choice("1"))
         SHA256.pack()
@@ -55,9 +60,20 @@ class StartPage(tk.Frame):
         MD5.pack()
 
 class checkVal(tk.Frame):
-
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
+        valueBox = ttk.Entry(self)
+        submitButton = ttk.Button(self, text="Submit", command=lambda: submit())
+        valueBox.pack()
+        submitButton.pack()
+
+        def submit(hash):
+            submission = valueBox.get()
+            functions.outputCheck(submission, hash)
+
+    
+        
+
 
 app = window()
 app.mainloop()
