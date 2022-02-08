@@ -40,6 +40,7 @@ class StartPage(tk.Frame):
         label.pack(pady=10, padx=10)
         
         def Choice(choice):
+            global hash
             file = askopenfilename()
             if file:
                 hash = functions.hashchoice(choice, file)
@@ -67,12 +68,21 @@ class checkVal(tk.Frame):
         valueBox.pack()
         submitButton.pack()
 
-        def submit(hash):
-            submission = valueBox.get()
-            functions.outputCheck(submission, hash)
+        def submit():
+            global hash
+            matching=ttk.Label(self, text="")
+            print(hash.hexdigest())
+            print(valueBox.get())
+            if valueBox.get() == (hash.hexdigest()):
+                matching.config(text="Values match")
+                matching.pack_forget()
 
+
+            else:
+                matching.config(text="Values do not match")
+                matching.pack()
     
-        
+
 
 
 app = window()
