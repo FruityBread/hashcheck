@@ -26,7 +26,8 @@ def fileChoice(myHash):
             while True:
                 data = f.read(65536)
                 if not data:
-                    hashObj.myHash= (hash)
+                    myObj = hashObj(myHash,None)
+                    print(myObj.myHash)
                     break
                 myHash.update(data)
                 
@@ -37,10 +38,13 @@ def fileChoice(myHash):
 
 class hashObj():
     def __init__(self, myHash, realHash):
-        myHash=myHash
-        realHash=realHash
+        if myHash:
+            self.myHash=myHash
+        if realHash:
+            self.realHash=realHash
 
-print(hashObj)
+
+
 
 
 
