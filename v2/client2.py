@@ -1,9 +1,6 @@
 import tkinter as tk
 from tkinter import Entry, ttk
 import func2
-from tkinter.filedialog import askopenfilename
-from sys import exit
-
 class window(tk.Tk):
 
     def __init__(self, *args, **kwargs):
@@ -28,36 +25,50 @@ class window(tk.Tk):
         frame.tkraise()
 
 class StartPage(tk.Frame):
-    myHash=None
     def __init__(self, parent, controller):
+        def Choice(choice):
+            global myObj
+            myHash = func2.hashChoice(choice)
+            myObj = func2.fileChoice(myHash)
+            controller.show_frame(checkVal)
+
         tk.Frame.__init__(self, parent)
 
         label = ttk.Label(self, text="Hash Algorithm?")
         label.pack(pady=10, padx=10)
         SHA256 = ttk.Button(self, text="SHA256",
-                           command=lambda: func2.hashChoice("1"))
+                           command=lambda: Choice("1"))
         SHA256.pack()
 
         SHA512 = ttk.Button(self, text="SHA512",
-                            command=lambda: func2.hashChoice("2"))
+                            command=lambda: Choice("2"))
         SHA512.pack()
 
         MD5 = ttk.Button(self, text="MD5",
-                            command=lambda: func2.hashChoice("3"))
+                            command=lambda: Choice("3"))
         MD5.pack()
+
 
 class checkVal(tk.Frame):
     def __init__(self, parent, controller):
+        global myObj
         tk.Frame.__init__(self, parent)
         valueBox = ttk.Entry(self)
         submitButton = ttk.Button(self, text="Submit", command=lambda: submit())
+        matching = ttk.Label(self, text="")
         valueBox.pack()
         submitButton.pack()
-
         def submit():
-            pass
-    
-
+            myObj.realHash=valueBox.get()
+            if func2.compare(myObj) == True:
+                matching.pack_forget()
+                matching.configure(text="The values match")
+                matching.pack()
+            elif func2.compare(myObj) == False:
+                matching.pack_forget()
+                matching.configure(text="The values do not match")
+                matching.pack()
+            
 app = window()
 app.mainloop()
     
